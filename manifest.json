@@ -1,0 +1,24 @@
+{
+  "manifest_version": 2,
+  "name": "HighlightAndCaptureLinkExtension",
+  "version": "1.0",
+
+  "description": "Highlight external links and post them in trix editor attachment app",
+
+  "icons": {
+    "48": "icons/icon-48.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["https://*/*"],
+      "js": ["content.js"]
+    }
+  ],
+
+  "browser_action": {
+    "default_icon": "icons/icon-48.png",
+    "default_title": "Highlight and Capture Link",
+    "default_popup": "popup/popup.html"
+  }
+}
