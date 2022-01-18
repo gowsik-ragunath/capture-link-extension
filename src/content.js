@@ -1,8 +1,12 @@
-window.browser = browser || chrome;
+// window.browser = (function() {
+//   return window.browser || window.chrome;
+// })();
 
-console.log(window.browser);
+window.browser = chrome;
+
+console.log(window.browser)
+
 document.onreadystatechange = () => {
-  console.log("document......");
   console.log(document.readyState)
   if (document.readyState === "complete") {
     attachInvertButton();

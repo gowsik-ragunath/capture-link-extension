@@ -9,16 +9,25 @@
     "48": "icons/icon-48.png"
   },
 
+  "background": {
+    "scripts": ["background.js"]
+  },
+
   "content_scripts": [
     {
-      "matches": ["https://*/*"],
-      "js": ["content.js"]
+      "matches": ["<all_urls>"],
+      "js": ["src/content.js"]
     }
   ],
 
   "browser_action": {
     "default_icon": "icons/icon-48.png",
     "default_title": "Highlight and Capture Link",
-    "default_popup": "popup/popup.html"
-  }
+    "default_popup": "view/popup.html"
+  },
+
+  "permissions": [
+    "cookies",
+    "https://7de4-117-202-180-125.ngrok.io/*"
+  ] 
 }
