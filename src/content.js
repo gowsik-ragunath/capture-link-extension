@@ -1,13 +1,8 @@
-// window.browser = (function() {
-//   return window.browser || window.chrome;
-// })();
-
-window.browser = chrome;
-
-console.log(window.browser)
+window.browser = (function() {
+  return window.browser || window.chrome;
+})();
 
 document.onreadystatechange = () => {
-  console.log(document.readyState)
   if (document.readyState === "complete") {
     attachInvertButton();
   
@@ -17,12 +12,17 @@ document.onreadystatechange = () => {
 
 window.browser.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
+    console.log(request.message);
+    console.log("request.message content//////");
     if( request.message === "invert" )
       invertPage();
     else if( request.message === "highlight" )
       highlightExternalLink();
+    else if( request.message === "captureLink" )
+      captureExtenalLinks();
   }
 );
+
 
 function attachInvertButton() {
   let invertButton = document.createElement("button");
@@ -34,6 +34,7 @@ function attachInvertButton() {
 
   document.body.insertAdjacentElement('beforebegin', invertButton);
 }
+
 
 function highlightExternalLink() {
   var links = document.querySelectorAll("a");
@@ -56,4 +57,22 @@ function invertPage() {
     document.querySelector('html').style.filter = 'invert(100%)';
   else
     document.querySelector('html').style.filter = 'invert(0%)';
+}
+
+
+function captureExtenalLinks() {
+  var links = document.querySelectorAll("a");
+  var external_links = [];
+  var link_name = "";
+
+  for(let link of links) {
+    if((link.origin !== document.location.origin) && link.href !== "")
+      link_name = `${link.innerText} - ${link.href}`;
+      external_links.push(link_name);
+  }
+
+  window.browser.runtime.sendMessage({ 
+    "message": "externalLink",
+    "links": external_links
+  });
 }

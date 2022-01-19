@@ -10,15 +10,9 @@
   },
 
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["background.js"],
+    "persistent": false
   },
-
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["src/content.js"]
-    }
-  ],
 
   "browser_action": {
     "default_icon": "icons/icon-48.png",
@@ -28,6 +22,13 @@
 
   "permissions": [
     "cookies",
-    "https://7de4-117-202-180-125.ngrok.io/*"
-  ] 
+    "https://d291-117-203-66-57.ngrok.io/*"
+  ],
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content.js"]
+    }
+  ]
 }
